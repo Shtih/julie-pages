@@ -35,7 +35,7 @@
 
     .topbar,
     main {
-      max-width: 960px;
+      max-width: 980px;
       margin: 0 auto;
       padding: 20px;
     }
@@ -89,7 +89,7 @@
     }
 
     .card {
-      min-height: 136px;
+      min-height: 150px;
       padding: 14px;
       display: grid;
       align-content: space-between;
@@ -112,8 +112,14 @@
       font-weight: 760;
     }
 
-    .pill.green { background: var(--green); }
-    .pill.amber { background: var(--amber); }
+    .green { background: var(--green); }
+    .amber { background: var(--amber); }
+
+    a {
+      color: var(--blue);
+      font-weight: 760;
+      text-decoration: none;
+    }
 
     @media (max-width: 780px) {
       .grid {
@@ -128,33 +134,44 @@
       <div class="mark">J</div>
       <div>
         <h1>Джули · Публичные страницы</h1>
-        <p class="muted">тестовая полка для HTML-страниц и дашбордов</p>
+        <p class="muted">полка для HTML-страниц, которыми можно делиться ссылкой</p>
       </div>
     </div>
   </header>
 
   <main>
     <section class="panel">
-      <span class="pill green">работает</span>
-      <h2>Это первая опубликованная HTML-страница</h2>
-      <p class="muted">Дальше сюда можно выкладывать рабочие дашборды, отчёты, презентационные страницы и любые аккуратные HTML-артефакты, которыми нужно делиться ссылкой.</p>
+      <span class="pill green">online</span>
+      <h2>Публикации работают</h2>
+      <p class="muted">Это публичная витрина. Сюда попадают только чистые страницы без личных данных, внутренних документов, здоровья, финансов, паролей и рабочих черновиков.</p>
     </section>
 
     <section class="grid">
       <article class="card">
-        <span class="pill">шаг 1</span>
-        <h3>Локально</h3>
-        <p class="muted">Codex делает страницу и проверяет её на компьютере.</p>
+        <div>
+          <span class="pill">процесс</span>
+          <h3>Рельс публикации</h3>
+        </div>
+        <p class="muted">Что можно публиковать и как HTML превращается в ссылку.</p>
+        <a href="publication-kit/">Открыть</a>
       </article>
+
       <article class="card">
-        <span class="pill amber">шаг 2</span>
-        <h3>Публикация</h3>
-        <p class="muted">Страница попадает в GitHub и получает ссылку.</p>
+        <div>
+          <span class="pill amber">шаблон</span>
+          <h3>Share page</h3>
+        </div>
+        <p class="muted">Базовая заготовка для следующих публичных страниц.</p>
+        <a href="templates/share-page.html">Открыть</a>
       </article>
+
       <article class="card">
-        <span class="pill green">шаг 3</span>
-        <h3>Шеринг</h3>
-        <p class="muted">Джули отправляет ссылку человеку, а не файл.</p>
+        <div>
+          <span class="pill green">готово</span>
+          <h3>Первая ссылка</h3>
+        </div>
+        <p class="muted">Публичная полка настроена через GitHub Pages.</p>
+        <a href="https://github.com/Shtih/julie-pages">GitHub</a>
       </article>
     </section>
   </main>
