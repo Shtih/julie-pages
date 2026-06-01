@@ -429,6 +429,55 @@
       background: var(--accent-deep);
     }
 
+    .schedule-chart {
+      display: grid;
+      gap: 12px;
+    }
+
+    .schedule-row {
+      display: grid;
+      grid-template-columns: 96px minmax(180px, 1fr) 128px;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .schedule-date {
+      color: var(--accent-deep);
+      font-weight: 850;
+    }
+
+    .schedule-track {
+      min-height: 26px;
+      border-radius: 999px;
+      background: #f0e7db;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(111, 29, 45, 0.08);
+    }
+
+    .schedule-fill {
+      width: max(var(--w), 20px);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent-deep), #a24152, var(--gold));
+    }
+
+    .schedule-amount {
+      text-align: right;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .schedule-list {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .schedule-list strong {
+      color: var(--ink);
+    }
+
     .note {
       padding: 18px;
       display: grid;
@@ -458,6 +507,15 @@
       table {
         font-size: 14px;
       }
+
+      .schedule-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .schedule-amount {
+        text-align: left;
+      }
     }
   </style>
 </head>
@@ -483,6 +541,7 @@
       <a href="#pyramid">Пирамида</a>
       <a href="#mirrors">Зеркальные панели</a>
       <a href="#summary">Сводная таблица</a>
+      <a href="#payment-schedule">График оплат</a>
     </div>
   </nav>
 
@@ -1175,8 +1234,8 @@
             <tbody>
               <tr><td>Металлические стеллажи</td><td class="price">113 714 GEL</td></tr>
               <tr><td>Барная стойка</td><td class="price">53 609 GEL</td></tr>
-              <tr><td>Мебель рабочий санузел</td><td class="price">1 768 GEL</td></tr>
-              <tr><td>Мебель гостевой санузел</td><td class="price">1 988 GEL</td></tr>
+              <tr><td>Мебель рабочий санузел</td><td class="price">1 988 GEL</td></tr>
+              <tr><td>Мебель гостевой санузел</td><td class="price">1 768 GEL</td></tr>
               <tr><td>Тумба под кофемашину</td><td class="price">4 070 GEL</td></tr>
               <tr><td>Тумба под пирамиду</td><td class="price">5 620 GEL</td></tr>
               <tr><td>Основа для пирамиды</td><td class="price">1 110 GEL</td></tr>
@@ -1198,6 +1257,114 @@
             <li>Проектирование технической документации: 2 850 GEL.</li>
             <li><strong>Итого оплачено: 74 705,87 GEL.</strong></li>
           </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="payment-schedule">
+      <div class="section-head no-media">
+        <div class="section-copy">
+          <div class="tagrow">
+            <span class="tag">График оплат</span>
+            <span class="tag secondary">закупка материалов · оплата работ</span>
+          </div>
+          <h2>Сводная таблица закупки материалов и оплаты работ</h2>
+          <p class="muted">Платежи сгруппированы по датам. В диаграмме показана общая сумма на дату, ниже - детализация по каждой оплате.</p>
+        </div>
+      </div>
+      <div class="body-grid">
+        <article class="panel wide">
+          <h3>Диаграмма оплат по датам</h3>
+          <div class="schedule-chart" aria-label="Диаграмма оплат по датам">
+            <div class="schedule-row">
+              <div class="schedule-date">05.06</div>
+              <div class="schedule-track"><div class="schedule-fill" style="--w: 22.25%;"></div></div>
+              <div class="schedule-amount">20 163 GEL</div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-date">08.06</div>
+              <div class="schedule-track"><div class="schedule-fill" style="--w: 3.69%;"></div></div>
+              <div class="schedule-amount">3 350 GEL</div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-date">15.06</div>
+              <div class="schedule-track"><div class="schedule-fill" style="--w: 4.92%;"></div></div>
+              <div class="schedule-amount">4 462 GEL</div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-date">25.06</div>
+              <div class="schedule-track"><div class="schedule-fill" style="--w: 100%;"></div></div>
+              <div class="schedule-amount">90 652 GEL</div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-date">15.07</div>
+              <div class="schedule-track"><div class="schedule-fill" style="--w: 25.72%;"></div></div>
+              <div class="schedule-amount">23 316 GEL</div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-date">Дата не указана</div>
+              <div class="schedule-track"><div class="schedule-fill" style="--w: 1.22%;"></div></div>
+              <div class="schedule-amount">1 110 GEL</div>
+            </div>
+          </div>
+          <p class="schedule-list"><strong>Итого по строкам графика:</strong> 143 053 GEL. Сумма рассчитана только по оплатам, для которых в присланном тексте указан срок или отдельная строка оплаты.</p>
+        </article>
+
+        <article class="panel wide">
+          <h3>Детализация оплат</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Дата</th>
+                <th>Сумма</th>
+                <th>За что оплата</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>05.06</td><td class="price">2 916 GEL</td><td>Металлические стеллажи: закупка освещения.</td></tr>
+              <tr><td>05.06</td><td class="price">1 922 GEL</td><td>Металлические стеллажи: стекло, заказ.</td></tr>
+              <tr><td>05.06</td><td class="price">3 828 GEL</td><td>Барная стойка: корпусная мебель базы, предоплата 40%.</td></tr>
+              <tr><td>05.06</td><td class="price">3 540 GEL</td><td>Барная стойка: корпусная мебель фасады, предоплата 40%.</td></tr>
+              <tr><td>05.06</td><td class="price">3 750 GEL</td><td>Барная стойка: детали из закаленного стекла Optiwhite, заказ.</td></tr>
+              <tr><td>05.06</td><td class="price">795 GEL</td><td>Мебель рабочий санузел: корпусная мебель, предоплата 40%.</td></tr>
+              <tr><td>05.06</td><td class="price">624 GEL</td><td>Тумба под кофемашину: корпусная мебель, предоплата 40%.</td></tr>
+              <tr><td>05.06</td><td class="price">1 888 GEL</td><td>Тумба под пирамиду: корпусная мебель, предоплата 40%.</td></tr>
+              <tr><td>05.06</td><td class="price">900 GEL</td><td>Тумба под пирамиду: стеклянные полки, заказ.</td></tr>
+
+              <tr><td>08.06</td><td class="price">350 GEL</td><td>Металлические стеллажи: упаковка стеллажей, без НДС.</td></tr>
+              <tr><td>08.06</td><td class="price">3 000 GEL</td><td>Металлические стеллажи: доставка, погрузка и разгрузка на объект.</td></tr>
+
+              <tr><td>15.06</td><td class="price">2 950 GEL</td><td>Металлические стеллажи: установка светодиодного освещения, без НДС.</td></tr>
+              <tr><td>15.06</td><td class="price">840 GEL</td><td>Барная стойка: зеркальные панели, заказ.</td></tr>
+              <tr><td>15.06</td><td class="price">672 GEL</td><td>Оклейка колонн и стен: зеркальные панели, 4 листа, заказ.</td></tr>
+
+              <tr><td>25.06</td><td class="price">9 400 GEL</td><td>Металлические стеллажи: монтаж на объекте, без НДС.</td></tr>
+              <tr><td>25.06</td><td class="price">45 843 GEL</td><td>Металлические стеллажи: остаток за изготовление.</td></tr>
+              <tr><td>25.06</td><td class="price">1 074 GEL</td><td>Столешница для стола с хамоном: предоплата 50%.</td></tr>
+              <tr><td>25.06</td><td class="price">5 742 GEL</td><td>Барная стойка: корпусная мебель базы, остаток.</td></tr>
+              <tr><td>25.06</td><td class="price">5 310 GEL</td><td>Барная стойка: корпусная мебель фасады, остаток.</td></tr>
+              <tr><td>25.06</td><td class="price">8 593 GEL</td><td>Барная стойка: рабочая и клиентская столешницы, предоплата 50%.</td></tr>
+              <tr><td>25.06</td><td class="price">900 GEL</td><td>Барная стойка: монтаж зеркальных панелей, без НДС.</td></tr>
+              <tr><td>25.06</td><td class="price">1 193 GEL</td><td>Мебель рабочий санузел: остаток.</td></tr>
+              <tr><td>25.06</td><td class="price">884 GEL</td><td>Мебель гостевой санузел: столешница под раковину, предоплата 50%.</td></tr>
+              <tr><td>25.06</td><td class="price">936 GEL</td><td>Тумба под кофемашину: корпусная мебель, остаток.</td></tr>
+              <tr><td>25.06</td><td class="price">1 255 GEL</td><td>Тумба под кофемашину: столешница из искусственного камня, предоплата 50%.</td></tr>
+              <tr><td>25.06</td><td class="price">2 832 GEL</td><td>Тумба под пирамиду: корпусная мебель, остаток.</td></tr>
+              <tr><td>25.06</td><td class="price">6 690 GEL</td><td>Пирамида: изготовление, предоплата 50%.</td></tr>
+
+              <tr><td>15.07</td><td class="price">1 074 GEL</td><td>Столешница для стола с хамоном: остаток.</td></tr>
+              <tr><td>15.07</td><td class="price">8 593 GEL</td><td>Барная стойка: рабочая и клиентская столешницы, остаток.</td></tr>
+              <tr><td>15.07</td><td class="price">884 GEL</td><td>Мебель гостевой санузел: столешница под раковину, остаток.</td></tr>
+              <tr><td>15.07</td><td class="price">1 255 GEL</td><td>Тумба под кофемашину: столешница из искусственного камня, остаток.</td></tr>
+              <tr><td>15.07</td><td class="price">6 690 GEL</td><td>Пирамида: изготовление, остаток.</td></tr>
+              <tr><td>15.07</td><td class="price">2 250 GEL</td><td>Пирамида: подсветка с материалом и монтажом.</td></tr>
+              <tr><td>15.07</td><td class="price">720 GEL</td><td>Оклейка колонн и стен: работы по оклейке.</td></tr>
+              <tr><td>15.07</td><td class="price">1 850 GEL</td><td>Проектирование мебели: остаток.</td></tr>
+
+              <tr><td>Дата не указана</td><td class="price">1 110 GEL</td><td>Основа для пирамиды.</td></tr>
+              <tr class="total-row"><td>Итого по графику</td><td class="price">143 053 GEL</td><td>Сумма строк с указанными сроками оплаты и строкой без даты.</td></tr>
+            </tbody>
+          </table>
         </article>
       </div>
     </section>
