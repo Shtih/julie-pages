@@ -1,0 +1,1211 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Reserve · Проект мебели</title>
+  <style>
+    :root {
+      --bg: #f3efe7;
+      --surface: #fffdf8;
+      --surface-soft: #fbf7ee;
+      --ink: #231d19;
+      --muted: #746b61;
+      --line: #d7cbbc;
+      --accent: #7b1f2e;
+      --accent-deep: #6f1d2d;
+      --accent-soft: #f1e1e2;
+      --gold: #d2af78;
+      --gold-soft: #f3e7d0;
+      --green: #2f6f58;
+      --blue: #315f87;
+      --shadow: 0 14px 34px rgba(49, 38, 27, 0.09);
+      --shadow-soft: 0 8px 18px rgba(49, 38, 27, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, #ede5d9 0, var(--bg) 260px, #f8f6f1 100%);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+
+    header {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(111, 29, 45, 0.2), rgba(210, 175, 120, 0.08)),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 86px),
+        #171210;
+      color: #fffdf8;
+      border-bottom: 1px solid rgba(210, 175, 120, 0.35);
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(210, 175, 120, 0.9), transparent);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 16px;
+      padding: 58px 0 44px;
+      text-align: center;
+    }
+
+    .cover-logo {
+      width: clamp(112px, 18vw, 156px);
+      aspect-ratio: 1;
+      display: block;
+      border: 1px solid rgba(210, 175, 120, 0.58);
+      border-radius: 10px;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.32);
+      object-fit: cover;
+    }
+
+    .kicker {
+      width: fit-content;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 999px;
+      padding: 6px 11px;
+      color: #f4dfbd;
+      font-size: 11px;
+      font-weight: 750;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    figure { margin: 0; }
+
+    h1 {
+      max-width: 660px;
+      font-size: clamp(23px, 5.3vw, 49px);
+      line-height: 1.03;
+      font-weight: 850;
+      text-wrap: balance;
+    }
+
+    .lead {
+      max-width: 640px;
+      color: #e5d8c8;
+      font-size: 16px;
+      line-height: 1.55;
+      text-wrap: balance;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(255, 253, 248, 0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .navline {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 12px 0;
+      scrollbar-width: thin;
+    }
+
+    .navline a {
+      flex: 0 0 auto;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 11px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 13px;
+      font-weight: 720;
+      text-decoration: none;
+      box-shadow: 0 3px 10px rgba(49, 38, 27, 0.04);
+    }
+
+    .navline a:hover {
+      border-color: #c2a26f;
+      background: #fffaf0;
+    }
+
+    main {
+      display: grid;
+      gap: 26px;
+      padding: 28px 0 58px;
+      counter-reset: section;
+    }
+
+    .section,
+    .note {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .section {
+      overflow: hidden;
+      counter-increment: section;
+      position: relative;
+    }
+
+    .section::before {
+      content: "";
+      display: block;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-deep), var(--gold), transparent);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      padding: 24px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(210, 175, 120, 0.18), transparent 48%),
+        var(--surface);
+    }
+
+    .section-head.no-media {
+      grid-template-columns: 1fr;
+    }
+
+    .section-copy {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    h2 {
+      font-size: 28px;
+      line-height: 1.1;
+      text-wrap: balance;
+    }
+
+    .section-copy h2::before {
+      content: counter(section, decimal-leading-zero);
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    h3 {
+      margin-top: 4px;
+      color: var(--accent-deep);
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .tagrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 5px 9px;
+      color: #fff;
+      background: var(--accent-deep);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .tag.secondary {
+      color: #5d4726;
+      background: var(--gold-soft);
+    }
+
+    .image-slot {
+      min-height: 260px;
+      border: 1px dashed #b9ad9b;
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(123, 31, 46, 0.08), rgba(47, 111, 88, 0.08)),
+        #faf7ef;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 720;
+    }
+
+    .image-card,
+    .gallery-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .image-card {
+      display: grid;
+      grid-template-rows: minmax(220px, 1fr) auto;
+      min-height: 260px;
+      outline: 1px solid rgba(210, 175, 120, 0.18);
+      outline-offset: -6px;
+    }
+
+    .image-card img,
+    .gallery-card img {
+      display: block;
+      width: 100%;
+      background: #f2eee5;
+      object-fit: contain;
+    }
+
+    .image-card img {
+      height: 100%;
+      min-height: 220px;
+      max-height: 420px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+      padding: 22px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(123, 31, 46, 0.035), transparent),
+        #f8f2e8;
+    }
+
+    .gallery-card img {
+      aspect-ratio: 4 / 3;
+    }
+
+    figcaption {
+      padding: 10px 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .body-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      padding: 22px;
+    }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--gold), rgba(210, 175, 120, 0));
+    }
+
+    .panel.total-panel {
+      border-color: var(--accent-deep);
+      background:
+        linear-gradient(135deg, rgba(210, 175, 120, 0.14), transparent 48%),
+        var(--accent-deep);
+      color: #fffdf8;
+    }
+
+    .panel.total-panel::before {
+      background: var(--gold);
+    }
+
+    .panel.total-panel h3,
+    .panel.total-panel strong {
+      color: #fffdf8;
+    }
+
+    .panel.total-panel li::marker {
+      color: #f1c7cf;
+    }
+
+    .panel.wide {
+      grid-column: 1 / -1;
+    }
+
+    .text-block {
+      display: grid;
+      gap: 8px;
+    }
+
+    .text-block p {
+      margin: 0;
+    }
+
+    ul {
+      margin: 9px 0 0;
+      padding-left: 18px;
+    }
+
+    li + li {
+      margin-top: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      background: #f7f3eb;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    tbody tr:nth-child(even) td {
+      background: #fbf8f2;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .price {
+      white-space: nowrap;
+      font-weight: 780;
+    }
+
+    .total-row td {
+      color: #fff;
+      background: var(--accent-deep);
+      font-weight: 850;
+    }
+
+    tbody tr.total-row td {
+      background: var(--accent-deep);
+    }
+
+    .note {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    @media (max-width: 860px) {
+      .section-head,
+      .body-grid,
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: 360px;
+        padding-top: 44px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      .image-slot {
+        min-height: 210px;
+      }
+
+      table {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <img class="cover-logo" src="assets/the-reserve-logo.jpg" alt="The Reserve">
+      <span class="kicker">The Reserve</span>
+      <h1>Проект мебели</h1>
+      <p class="lead">Сводная презентация по элементам мебели, материалам, стоимости и ответственным подрядчикам.</p>
+    </div>
+  </header>
+
+  <nav>
+    <div class="wrap navline" aria-label="Навигация по элементам">
+      <a href="#metal">Металлические стеллажи</a>
+      <a href="#bar">Барная стойка</a>
+      <a href="#work-bathroom">Рабочий санузел</a>
+      <a href="#guest-bathroom">Гостевой санузел</a>
+      <a href="#coffee">Тумба под кофемашину</a>
+      <a href="#pyramid-cabinet">Тумба под пирамиду</a>
+      <a href="#pyramid-base">Основа для пирамиды</a>
+      <a href="#pyramid">Пирамида</a>
+      <a href="#mirrors">Зеркальные панели</a>
+      <a href="#summary">Сводная таблица</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section class="section" id="metal">
+      <div class="section-head">
+        <div class="section-copy">
+          <div class="tagrow">
+            <span class="tag">Материалы</span>
+            <span class="tag secondary">металл · стекло · подсветка · фанера</span>
+          </div>
+          <h2>Металлические стеллажи</h2>
+          <p class="muted">Система отдельно стоящих и встроенных стеллажей для зала, ниш, дегустационного зала, бэк-офиса и стола с хамоном. Основной цвет: черная порошковая покраска.</p>
+        </div>
+        <figure class="image-card">
+          <img src="assets/metal-shelf-1500x500-sketchup.png" alt="Металлический стеллаж 1500 мм в SketchUp">
+          <figcaption>Общий вид металлического стеллажа, ширина 1500 мм</figcaption>
+        </figure>
+      </div>
+      <div class="gallery" aria-label="Изображения металлических стеллажей">
+        <figure class="gallery-card">
+          <img src="assets/metal-shelf-1500x250-glass.png" alt="Стеллаж 1500х250 со стеклянными полками">
+          <figcaption>Стеллаж 1500х250 со стеклянными полками</figcaption>
+        </figure>
+        <figure class="gallery-card">
+          <img src="assets/metal-shelf-2400x250-low-glass.png" alt="Низкий стеллаж 2400х250 в дегустационный зал со стеклянными полками">
+          <figcaption>Низкий стеллаж 2400х250 в дегустационный зал</figcaption>
+        </figure>
+      </div>
+      <div class="body-grid">
+        <article class="panel">
+          <h3>Стеллаж отдельно стоящий в зале</h3>
+          <ul>
+            <li>Размер: 2900х1500х500 мм.</li>
+            <li>Полка из металла толщиной 2 мм с оригинальным рисунком.</li>
+            <li>Количество полок: 24.</li>
+            <li>Количество стеллажей: 18 шт.</li>
+            <li>Порошковая покраска в черный цвет.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Стеллаж в нише у входа</h3>
+          <ul>
+            <li>Размер: 2700х833х500 мм.</li>
+            <li>Полка из металла толщиной 2 мм с оригинальным рисунком.</li>
+            <li>Количество полок: 12 шт.</li>
+            <li>Количество стеллажей: 3 шт.</li>
+            <li>Порошковая покраска в черный цвет.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Стеллаж в нише по правой стене</h3>
+          <ul>
+            <li>Размер: 2700х1070х500 мм.</li>
+            <li>Полка из металла толщиной 2 мм с оригинальным рисунком.</li>
+            <li>Количество полок: 12 шт.</li>
+            <li>Количество стеллажей: 5 шт.</li>
+            <li>Порошковая покраска в черный цвет.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Стеллаж в нише у стеклянной перегородки</h3>
+          <ul>
+            <li>Размер: 2700х1400х500 мм.</li>
+            <li>Полка из металла толщиной 2 мм с оригинальным рисунком.</li>
+            <li>Количество полок: 12 шт.</li>
+            <li>Количество стеллажей: 1 шт.</li>
+            <li>Порошковая покраска в черный цвет.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Стеллаж перед стеклянной перегородкой со стеклянными полками</h3>
+          <ul>
+            <li>Размер: 2700х1500х250 мм.</li>
+            <li>Полка из закаленного стекла Optiwhite толщиной 8 мм.</li>
+            <li>Размер полок: 1460х210х8 мм.</li>
+            <li>Количество полок: 5 шт.</li>
+            <li>Площадь стеклянных полок: 1,53 м2.</li>
+            <li>Количество стеллажей: 1 шт.</li>
+            <li>Стоимость стеклянных полок: 310 GEL.</li>
+            <li>Заказываются на производстве в соответствии с технической документацией и оплачиваются заказчиком.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Стеллаж низкий в дегустационном зале со стеклянной полкой</h3>
+          <ul>
+            <li>Размер: 600х2400х250 мм.</li>
+            <li>Полка из закаленного стекла Optiwhite толщиной 8 мм.</li>
+            <li>Размер полок: 1200х210х8 мм.</li>
+            <li>Количество полок: 2 шт.</li>
+            <li>Площадь стеклянных полок: 0,5 м2.</li>
+            <li>Количество стеллажей: 1 шт.</li>
+            <li>Стоимость стеклянных полок: 100 GEL.</li>
+            <li>Заказываются на производстве в соответствии с технической документацией и оплачиваются заказчиком.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Система стеллажей в дегустационном зале со стеклянными полками</h3>
+          <ul>
+            <li>Размер: 2700х250 мм.</li>
+            <li>Полка из закаленного стекла Optiwhite толщиной 8 мм.</li>
+            <li>Размер полок: 1200х210х8 мм.</li>
+            <li>Количество полок: 30 шт.</li>
+            <li>Площадь стеклянных полок: 7,56 м2.</li>
+            <li>Количество стеллажей: 6 шт.</li>
+            <li>Стоимость стеклянных полок: 1 512 GEL.</li>
+            <li>Заказываются на производстве в соответствии с технической документацией и оплачиваются заказчиком.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Стеллаж в бэк-офисе</h3>
+          <ul>
+            <li>Размер: 2900х1250х500 мм.</li>
+            <li>Количество стеллажей: 4 шт.</li>
+            <li>Полки из фанеры 15 мм 4/4, после шлифовки.</li>
+            <li>Размер полок: 620х500х18 мм, количество: 40 шт.</li>
+            <li>Размер полок: 1240х500х18 мм, количество: 4 шт.</li>
+            <li>Стоимость полок: 600 GEL.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Стеллаж для стола с хамоном</h3>
+          <ul>
+            <li>Размер: 2650х750х900 мм.</li>
+            <li>Полка из металла толщиной 2 мм с оригинальным рисунком.</li>
+            <li>Количество полок: 2 шт.</li>
+            <li>Количество стеллажей: 1 шт.</li>
+            <li>Порошковая покраска в черный цвет.</li>
+            <li>Столешница из искусственного камня.</li>
+            <li>Камень 2,39 кв. м, стоимость: 1 170 GEL.</li>
+            <li>Изготовление столешницы: 2 147 GEL.</li>
+            <li>Итого: 3 317 GEL.</li>
+          </ul>
+        </article>
+        <article class="panel wide">
+          <h3>Светодиодное освещение в металлических стеллажах</h3>
+          <ul>
+            <li>Количество профиля для светодиодной ленты: 132 шт, профиль по 3 м/шт, 2,9 лари / м. Стоимость: 1 150 GEL.</li>
+            <li>Количество отражателя для светодиодной ленты: 132 шт, отражатель по 3 м/шт. Стоимость: 396 GEL.</li>
+            <li>Количество светодиодной ленты: 350 метров, 70 катушек, 11 GEL. Стоимость: 770 лари.</li>
+            <li>Трансформаторы: 12 шт, 50 GEL / шт. Стоимость: 600 GEL.</li>
+            <li>Итого стоимость освещения: 2 916 GEL.</li>
+            <li>Установка светодиодного освещения в стеллажи: 2 950 GEL.</li>
+            <li>Итого стоимость освещения в металлических стеллажах: 5 866 GEL, из них 2 950 без НДС.</li>
+            <li>Материалы покупает заказчик.</li>
+          </ul>
+        </article>
+        <article class="panel wide total-panel">
+          <h3>Стоимость изготовления металлических стеллажей</h3>
+          <ul>
+            <li>Изготовление металлических стеллажей: 80 068 GEL без НДС.</li>
+            <li>Стоимость металла для изготовления стеллажей: 13 108 GEL, приобретено заказчиком.</li>
+            <li>Внесена предоплата за изготовление в размере: 34 225 GEL без НДС.</li>
+            <li>Стоимость освещения: 2 916 GEL.</li>
+            <li>Установка светодиодного освещения в стеллажи: 2 950 GEL без НДС.</li>
+            <li>Стекло: 1 922 GEL.</li>
+            <li>Упаковка стеллажей: 350 GEL без НДС.</li>
+            <li>Доставка/погрузка/разгрузка стеллажей на объект: 3 000 GEL.</li>
+            <li>Монтаж стеллажей на объекте: 9 400 GEL без НДС.</li>
+            <li><strong>Итого: 113 714 GEL, из них 12 700 без НДС.</strong></li>
+          </ul>
+        </article>
+        <article class="panel wide">
+          <h3>Проектирование и подрядчики</h3>
+          <ul>
+            <li>Проектирование технической документации для металлических стеллажей: ИП Евдонин А.В.</li>
+            <li>Изготовление металлических стеллаже: ИП Новиков А.</li>
+            <li>Изготовление полок из ЛДСП: ИП Руденко Д. (VAT payer).</li>
+            <li>Монтаж металлических стеллажей на объекте: ИП Евдонин А.В.</li>
+            <li>Изготовление стеклянных полок: Euroglass LLS (VAT payer).</li>
+            <li>Доставка металлических стеллажей на объект: ИП Безруков А. (VAT payer).</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="bar">
+      <div class="section-head">
+        <div class="section-copy">
+          <div class="tagrow">
+            <span class="tag">Материалы</span>
+            <span class="tag secondary">ЛДСП · акриловый камень · стекло · зеркальные панели</span>
+          </div>
+          <h2>Барная стойка</h2>
+          <p class="muted">Комплекс корпусной мебели под технику, рабочей и клиентской столешницы из акрилового камня, фасадных элементов, стекла и зеркальных панелей.</p>
+        </div>
+        <figure class="image-card">
+          <img src="assets/bar-counter-view-01.jpg" alt="Барная стойка, 3D-вид корпусной мебели">
+          <figcaption>Барная стойка, общий 3D-вид корпусной мебели</figcaption>
+        </figure>
+      </div>
+      <div class="gallery" aria-label="Изображения барной стойки">
+        <figure class="gallery-card">
+          <img src="assets/bar-counter-drawing-01.png" alt="Барная стойка, технический чертеж 1">
+          <figcaption>Технический чертеж барной стойки, лист 1</figcaption>
+        </figure>
+        <figure class="gallery-card">
+          <img src="assets/bar-counter-drawing-02.png" alt="Барная стойка, технический чертеж 2">
+          <figcaption>Технический чертеж барной стойки, лист 2</figcaption>
+        </figure>
+        <figure class="gallery-card">
+          <img src="assets/bar-counter-view-02.jpg" alt="Барная стойка, 3D-вид 2">
+          <figcaption>3D-вид барной стойки, ракурс 2</figcaption>
+        </figure>
+        <figure class="gallery-card">
+          <img src="assets/bar-counter-view-03.jpg" alt="Барная стойка, 3D-вид 3">
+          <figcaption>3D-вид барной стойки, ракурс 3</figcaption>
+        </figure>
+      </div>
+      <div class="body-grid">
+        <article class="panel wide">
+          <h3>Корпусная мебель, базы под технику</h3>
+          <ul>
+            <li>База для ледогенератора: 950х688х622 мм, 1 шт.</li>
+            <li>База для Dishwasher: 950х624х622 мм, 1 шт.</li>
+            <li>База для мойки: 950х900х622 мм, 1 шт.</li>
+            <li>База для Glasswasher: 950х500х622 мм, 1 шт.</li>
+            <li>База для мусорного ведра: 950х450х622 мм, 1 шт.</li>
+            <li>Угловая база: 950х891х1071 мм, 2 шт.</li>
+            <li>База с выдвижными ящиками: 950х600х602 мм, 3 шт. Количество ящиков: 3 шт.</li>
+            <li>База с выдвижными ящиками: 648х600х602 мм, 2 шт. Количество ящиков: 2 шт.</li>
+            <li>База под микроволновку с выдвижным ящиком: 950х564х594 мм, 1 шт.</li>
+            <li>База под печку с выдвижным ящиком: 950х600х594 мм, 1 шт.</li>
+            <li>База под морозильник: 950х614х594 мм, 1 шт.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Стоимость изготовления корпусной мебели</h3>
+          <ul>
+            <li>Корпусная мебель.</li>
+            <li>Цвет: белый.</li>
+            <li>Фурнитура: GTV, включена в стоимость.</li>
+            <li>Монтаж входит в стоимость.</li>
+            <li><strong>Итого: 9 570 GEL, материал Kronospan.</strong></li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Столешница из акрилового камня</h3>
+          <ul>
+            <li>Столешница из акрилового камня Staron Sanded Icicle SI414 для барной стойки.</li>
+            <li>Рабочая столешница толщиной 30 мм по торцу.</li>
+            <li>Клиентская столешница и нога имеют светодиодную подсветку. Толщина 70 мм.</li>
+            <li>Рабочая столешница: 4420х834х30 мм, 1 шт.</li>
+            <li>Рабочая столешница: 4420х804х30 мм, 1 шт.</li>
+            <li>Рабочая столешница: 3582х812х30 мм, 1 шт.</li>
+            <li>Клиентская столешница: 1130х300х70 мм, 2 шт, нога.</li>
+            <li>Клиентская столешница: 4540х300х70 мм, 2 шт, верхняя столешница боковая.</li>
+            <li>Клиентская столешница: 1398х300х70 мм, 2 шт, фронтальная часть.</li>
+            <li>Боковая опора верхней столешницы: 4368х168х42 мм, 2 шт.</li>
+            <li>Фронтальная опора верхней столешницы: 1347х168х42 мм, 2 шт.</li>
+            <li>Боковой цоколь: 4400х88х12 мм, 2 шт.</li>
+            <li>Фронтальный цоколь: 5226х88х12 мм, 1 шт.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Стоимость столешницы</h3>
+          <ul>
+            <li>Камень 32,12 кв. м, стоимость: 15 754 GEL.</li>
+            <li>Изготовление столешницы: 17 185 GEL.</li>
+            <li>Подсветка с материалом и монтажом: 2 250 GEL.</li>
+            <li><strong>Итого: 35 189 GEL.</strong></li>
+          </ul>
+        </article>
+        <article class="panel wide">
+          <h3>Фасадная часть барной стойки</h3>
+          <ul>
+            <li>Фасадная корпусная мебель для барной стойки.</li>
+            <li>3299х168х18 мм, 4 шт, МДФ с ручной фрезеровкой пазов для установки стеклянных стоек.</li>
+            <li>3299х804х18 мм, 2 шт, МДФ с ручной фрезеровкой пазов для установки стеклянных стоек.</li>
+            <li>2430х168х18 мм, 2 шт, МДФ с ручной фрезеровкой пазов для установки стеклянных стоек.</li>
+            <li>2430х804х18 мм, 1 шт, МДФ с ручной фрезеровкой пазов для установки стеклянных стоек.</li>
+            <li>1224х804х18 мм, 2 шт, МДФ с ручной фрезеровкой пазов для установки стеклянных стоек.</li>
+            <li>942х804х18 мм, 2 шт, МДФ с ручной фрезеровкой пазов для установки стеклянных стоек.</li>
+            <li>1101х1383х18 мм, 4 шт, МДФ с ручной фрезеровкой пазов для установки стеклянных стоек.</li>
+            <li>Стоимость изготовления: 3 360 GEL.</li>
+          </ul>
+        </article>
+        <article class="panel wide">
+          <h3>Детали из закаленного стекла Optiwhite</h3>
+          <ul>
+            <li>Стоевые детали 822х150х8 мм, 22 шт.</li>
+            <li>Стоевые угловые детали 822х220х8 мм, 4 шт.</li>
+            <li>Полка 1081х150х8 мм, 6 шт.</li>
+            <li>Полка 1074х150х8 мм, 2 шт.</li>
+            <li>Полка 1356х150х8 мм, 2 шт.</li>
+            <li>Полка 1199х150х8 мм, 2 шт.</li>
+            <li>Дверца 540х800х6 мм, 12 шт.</li>
+            <li>Дверца 530х800х6 мм, 4 шт.</li>
+            <li>Дверца 670х800х6 мм, 4 шт.</li>
+            <li>Дверца 600х800х6 мм, 4 шт.</li>
+            <li>Общая площадь стеклянных деталей: 18,7 м2.</li>
+            <li>Стоимость стеклянных деталей: 3 750 GEL.</li>
+            <li>Заказываются на производстве в соответствии с технической документацией и оплачиваются заказчиком.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Зеркальные панели</h3>
+          <ul>
+            <li>Зеркальные панели 3,5 кв. м, 1 шт: 5 шт, 840 GEL, приобретается заказчиком.</li>
+            <li>Площадь оклейки зеркальными панелями: 15,38 м2.</li>
+            <li>Монтаж зеркальных панелей: 900 GEL без НДС.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Стоимость фасадной корпусной мебели с наполнением</h3>
+          <ul>
+            <li>Фасадная корпусная мебель: 3 360 GEL.</li>
+            <li>Детали из закаленного стекла Optiwhite: 3 750 GEL.</li>
+            <li>Зеркальные панели: 840 GEL.</li>
+            <li>Монтаж зеркальных панелей: 900 GEL без НДС.</li>
+            <li><strong>Итого: 8 850 GEL, из них 900 GEL без НДС.</strong></li>
+          </ul>
+        </article>
+        <article class="panel total-panel">
+          <h3>Стоимость изготовления барной стойки</h3>
+          <ul>
+            <li>Корпусная мебель базы, монтаж входит в стоимость: 9 570 GEL.</li>
+            <li>Корпусная мебель фасады, монтаж входит в стоимость: 8 850 GEL.</li>
+            <li>Столешница рабочая и клиентская: 35 189 GEL.</li>
+            <li><strong>Итого: 53 609 GEL.</strong></li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Проектирование и подрядчики</h3>
+          <ul>
+            <li>Проектирование технической документации барной стойки: ИП Евдонин А.В.</li>
+            <li>Изготовление, доставка и установка корпусной мебели для барной стойки: ИП Руденко Д. (VAT payer).</li>
+            <li>Изготовление, доставка и установка акриловой столешницы: Decomix LLS (VAT payer).</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="work-bathroom">
+      <div class="section-head">
+        <div class="section-copy">
+          <div class="tagrow">
+            <span class="tag">Материалы</span>
+            <span class="tag secondary">ЛДСП</span>
+          </div>
+          <h2>Рабочий санузел</h2>
+          <p class="muted">Корпусная мебель из ЛДСП Kronospan: шкаф и тумба, фурнитура GTV включена в стоимость.</p>
+        </div>
+        <figure class="image-card">
+          <img src="assets/work-bathroom-cabinet.png" alt="Рабочий санузел, шкаф и тумба с размерами">
+          <figcaption>Рабочий санузел: шкаф 2700х600х450 мм и тумба 1686х300х450 мм</figcaption>
+        </figure>
+      </div>
+      <div class="body-grid">
+        <article class="panel">
+          <h3>Корпусная мебель</h3>
+          <ul>
+            <li>Шкаф: 2700х600х450 мм, 1 шт.</li>
+            <li>Тумба: 1686х300х450 мм, 1 шт.</li>
+            <li>Материал: ЛДСП Kronospan.</li>
+            <li>Фурнитура: GTV, включена в стоимость.</li>
+            <li>Изготовление и монтаж: 1 988 GEL.</li>
+          </ul>
+        </article>
+        <article class="panel total-panel">
+          <h3>Стоимость изготовления мебели рабочий санузел</h3>
+          <ul>
+            <li>Корпусная мебель: 1 988 GEL.</li>
+            <li><strong>Итого: 1 988 GEL.</strong></li>
+          </ul>
+        </article>
+        <article class="panel wide">
+          <h3>Проектирование и подрядчики</h3>
+          <ul>
+            <li>Проектирование технической документации барной стойки: ИП Евдонин А.В.</li>
+            <li>Изготовление, доставка и установка корпусной мебели для барной стойки: ИП Руденко Д. (VAT payer).</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="guest-bathroom">
+      <div class="section-head no-media">
+        <div class="section-copy">
+          <div class="tagrow">
+            <span class="tag">Материалы</span>
+            <span class="tag secondary">акриловый камень</span>
+          </div>
+          <h2>Гостевой санузел</h2>
+          <p class="muted">Столешница из искусственного камня Staron Sanded Icicle SI414.</p>
+        </div>
+      </div>
+      <div class="body-grid">
+        <article class="panel">
+          <h3>Столешница из искусственного камня</h3>
+          <ul>
+            <li>Материал столешницы: Staron Sanded Icicle SI414.</li>
+            <li>Размер: 1086х450х30 мм.</li>
+            <li>Камень: 256 GEL.</li>
+            <li>Изготовление столешницы: 1 512 GEL.</li>
+            <li>Итого: 1 768 GEL.</li>
+          </ul>
+        </article>
+        <article class="panel total-panel">
+          <h3>Стоимость изготовления мебели клиентский санузел</h3>
+          <ul>
+            <li>Столешница: 1 768 GEL.</li>
+            <li><strong>Итого: 1 768 GEL.</strong></li>
+          </ul>
+        </article>
+        <article class="panel wide">
+          <h3>Проектирование и подрядчики</h3>
+          <ul>
+            <li>Проектирование технической документации мебели санузлов: ИП Евдонин А.В.</li>
+            <li>Изготовление, доставка и установка столешницы: Decomix LLS (VAT payer).</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="coffee">
+      <div class="section-head">
+        <div class="section-copy">
+          <div class="tagrow">
+            <span class="tag">Материалы</span>
+            <span class="tag secondary">ЛДСП · акриловый камень</span>
+          </div>
+          <h2>Тумба под кофемашину</h2>
+          <p class="muted">Тумба из ЛДСП с распашными фасадами, внутренними полками и выдвижными ящиками. Столешница из акрилового камня Staron SI414.</p>
+        </div>
+        <figure class="image-card">
+          <img src="assets/coffee-cabinet-3d-view.png" alt="Тумба под кофемашину, 3D-вид">
+          <figcaption>Тумба под кофемашину, общий 3D-вид</figcaption>
+        </figure>
+      </div>
+      <div class="gallery" aria-label="Изображения тумбы под кофемашину">
+        <figure class="gallery-card">
+          <img src="assets/coffee-cabinet-front-drawing.png" alt="Тумба под кофемашину, вид спереди с размерами">
+          <figcaption>Вид спереди с размерами</figcaption>
+        </figure>
+        <figure class="gallery-card">
+          <img src="assets/coffee-cabinet-top-drawing.png" alt="Тумба под кофемашину, вид сверху с размерами">
+          <figcaption>Вид сверху с размерами столешницы</figcaption>
+        </figure>
+      </div>
+      <div class="body-grid">
+        <article class="panel">
+          <h3>Корпусная мебель</h3>
+          <ul>
+            <li>950х510х610 мм, распашной фасад, полка внутри.</li>
+            <li>950х580х510 мм, распашной фасад, полка внутри.</li>
+            <li>950х400х1950 мм, 3 выдвижных ящика.</li>
+            <li>Материал: ЛДСП Kronospan.</li>
+            <li>Фурнитура: GTV, включена в стоимость.</li>
+            <li>Изготовление и монтаж: 1 560 GEL.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Столешница из искусственного камня</h3>
+          <ul>
+            <li>Материал столешницы: Staron Sanded Icicle SI414.</li>
+            <li>Размеры: 510х610 мм, 580х510 мм, 400х1950 мм.</li>
+            <li>Камень: 1,39 кв. м, 680 GEL.</li>
+            <li>Изготовление столешницы: 1 830 GEL.</li>
+            <li>Итого по столешнице: 2 510 GEL.</li>
+          </ul>
+        </article>
+        <article class="panel total-panel">
+          <h3>Стоимость изготовления тумбы под кофемашину</h3>
+          <ul>
+            <li>Корпусная мебель, изготовление и монтаж: 1 560 GEL.</li>
+            <li>Столешница из искусственного камня: 2 510 GEL.</li>
+            <li><strong>Итого: 4 070 GEL.</strong></li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Проектирование и подрядчики</h3>
+          <ul>
+            <li>Проектирование технической документации тумбы под кофемашину: ИП Евдонин А.В.</li>
+            <li>Изготовление, доставка и установка корпусной мебели для тумбы под кофемашину: ИП Руденко Д. (VAT payer).</li>
+            <li>Изготовление, доставка и установка столешницы: Decomix LLS (VAT payer).</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="pyramid-cabinet">
+      <div class="section-head">
+        <div class="section-copy">
+          <div class="tagrow">
+            <span class="tag">Материалы</span>
+            <span class="tag secondary">ЛДСП · стекло</span>
+          </div>
+          <h2>Тумба под пирамиду</h2>
+          <p class="muted">Тумба состоит из четырех баз в форме трапеции со стеклянными полками.</p>
+        </div>
+        <figure class="image-card">
+          <img src="assets/pyramid-cabinet-sketchup.png" alt="Тумба под пирамиду, 3D-вид">
+          <figcaption>Тумба под пирамиду: четыре базы в форме трапеции</figcaption>
+        </figure>
+      </div>
+      <div class="body-grid">
+        <article class="panel">
+          <h3>Корпусная мебель</h3>
+          <ul>
+            <li>Состоит из 4-х баз в форме трапеции.</li>
+            <li>Внутри полки из закаленного стекла толщиной 8 мм.</li>
+            <li>Базы: 1000х2000х600 мм, 4 шт.</li>
+            <li>Материал: ЛДСП Kronospan.</li>
+            <li>Фурнитура: GTV, включена в стоимость.</li>
+            <li>Изготовление и монтаж: 4 720 GEL.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Стеклянные полки</h3>
+          <ul>
+            <li>966х575 мм, 8 шт.</li>
+            <li>Площадь стеклянных полок: 4,44 м2.</li>
+            <li>Стоимость стеклянных полок: 900 GEL.</li>
+            <li>Заказываются на производстве в соответствии с технической документацией и оплачиваются заказчиком.</li>
+          </ul>
+        </article>
+        <article class="panel total-panel">
+          <h3>Стоимость изготовления тумбы под пирамиду</h3>
+          <ul>
+            <li>Корпусная мебель: 4 720 GEL.</li>
+            <li>Стеклянные полки: 900 GEL.</li>
+            <li><strong>Итого: 5 620 GEL.</strong></li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Проектирование и подрядчики</h3>
+          <ul>
+            <li>Проектирование технической документации тумбы под пирамиду: ИП Евдонин А.В.</li>
+            <li>Изготовление, доставка и установка корпусной для тумбы под пирамиду: ИП Руденко Д. (VAT payer).</li>
+            <li>Монтаж стекла: ИП Евдонин А.В.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="pyramid-base">
+      <div class="section-head">
+        <div class="section-copy">
+          <div class="tagrow">
+            <span class="tag">Материалы</span>
+            <span class="tag secondary">фанера</span>
+          </div>
+          <h2>Основа для пирамиды</h2>
+          <p class="muted">Отдельно предусмотрена основа для акриловой пирамиды.</p>
+        </div>
+        <figure class="image-card">
+          <img src="assets/pyramid-base-sketchup.png" alt="Ступенчатое основание под пирамиду">
+          <figcaption>Основание под акриловую пирамиду</figcaption>
+        </figure>
+      </div>
+      <div class="body-grid">
+        <article class="panel total-panel">
+          <h3>Материал и размер</h3>
+          <ul>
+            <li>Материал основы для пирамиды из акрила изготавливается из березовой фанеры толщиной 15 мм: 461 GEL.</li>
+            <li>Размер основания: 738х1606х1606 мм.</li>
+            <li>Стоимость изготовления: 649 GEL.</li>
+            <li><strong>Итого стоимость основы: 1 110 GEL.</strong></li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Проектирование и подрядчики</h3>
+          <ul>
+            <li>Проектирование технической документации основания для акриловой пирамиды: ИП Евдонин А.В.</li>
+            <li>Изготовление, доставка и установка: ИП Евдонин А.В.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="pyramid">
+      <div class="section-head">
+        <div class="section-copy">
+          <div class="tagrow">
+            <span class="tag">Материалы</span>
+            <span class="tag secondary">акриловый камень · подсветка</span>
+          </div>
+          <h2>Пирамида</h2>
+          <p class="muted">Акриловая пирамида из материала Staron Sanded Icicle SI414 со светодиодной подсветкой по всем плоскостям и системой полок.</p>
+        </div>
+        <figure class="image-card">
+          <img src="assets/pyramid-sketchup-view.jpg" alt="Акриловая пирамида, SketchUp-вид">
+          <figcaption>Пирамида на тумбе, общий SketchUp-вид</figcaption>
+        </figure>
+      </div>
+      <div class="body-grid">
+        <article class="panel wide">
+          <h3>Пирамида</h3>
+          <ul>
+            <li>Светодиодная подсветка по всем плоскостям пирамиды.</li>
+            <li>Материал пирамиды: Staron Sanded Icicle SI414.</li>
+            <li>Размер пирамиды: 2000х2000х900 мм.</li>
+            <li>Количество полок: 5 шт.</li>
+          </ul>
+        </article>
+        <article class="panel wide">
+          <h3>Размер полок</h3>
+          <ul>
+            <li>1776х138х12 мм, 2 шт.</li>
+            <li>1800х138х12 мм, 2 шт.</li>
+            <li>1576х138х12 мм, 2 шт.</li>
+            <li>1600х138х12 мм, 2 шт.</li>
+            <li>1376х138х12 мм, 2 шт.</li>
+            <li>1400х138х12 мм, 2 шт.</li>
+            <li>1176х138х12 мм, 2 шт.</li>
+            <li>1200х138х12 мм, 2 шт.</li>
+            <li>976х138х12 мм, 2 шт.</li>
+            <li>1000х138х12 мм, 2 шт.</li>
+            <li>1576х112х12 мм, 2 шт.</li>
+            <li>1800х112х12 мм, 2 шт.</li>
+            <li>1376х112х12 мм, 2 шт.</li>
+            <li>1600х112х12 мм, 2 шт.</li>
+            <li>1176х112х12 мм, 2 шт.</li>
+            <li>1400х112х12 мм, 2 шт.</li>
+            <li>976х112х12 мм, 2 шт.</li>
+            <li>1200х112х12 мм, 2 шт.</li>
+            <li>800х100х12 мм, 2 шт.</li>
+            <li>1000х100х12 мм, 2 шт.</li>
+            <li>2000х1000х12 мм, 4 шт.</li>
+          </ul>
+        </article>
+        <article class="panel total-panel">
+          <h3>Стоимость</h3>
+          <ul>
+            <li>Камень: 7,47 кв. м, 3 664 GEL.</li>
+            <li>Подсветка с материалом и монтажом: 2 250 GEL.</li>
+            <li>Изготовление: 13 380 GEL.</li>
+            <li>Итого: 19 294 GEL.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Проектирование и подрядчики</h3>
+          <ul>
+            <li>Проектирование технической документации пирамиды: ИП Евдонин А.В.</li>
+            <li>Изготовление, доставка и установка пирамиды: Decomix LLS (VAT payer).</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="mirrors">
+      <div class="section-head no-media">
+        <div class="section-copy">
+          <div class="tagrow">
+            <span class="tag">Материалы</span>
+            <span class="tag secondary">зеркальные панели</span>
+          </div>
+          <h2>Оклейка колонн зеркальными панелями</h2>
+          <p class="muted">Оклейка колонн и стен в баре зеркальными панелями. Площадь оклейки: 11 кв. м.</p>
+        </div>
+      </div>
+      <div class="body-grid">
+        <article class="panel">
+          <h3>Материалы</h3>
+          <ul>
+            <li>Количество листов: 4 листа.</li>
+            <li>Стоимость листов: 672 GEL.</li>
+          </ul>
+        </article>
+        <article class="panel total-panel">
+          <h3>Стоимость оклейки</h3>
+          <ul>
+            <li>Оклейка стен и колонн: 720 GEL.</li>
+            <li><strong>Итого: 1 392 GEL.</strong></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="summary">
+      <div class="section-head no-media">
+        <div class="section-copy">
+          <div class="tagrow">
+            <span class="tag">Сводная таблица</span>
+          </div>
+          <h2>Все проекты и элементы мебели</h2>
+          <p class="muted">Стоимость по каждому блоку проекта винного бутика The Reserve.</p>
+        </div>
+      </div>
+      <div class="body-grid">
+        <article class="panel">
+          <table>
+            <thead>
+              <tr>
+                <th>Наименование</th>
+                <th>Стоимость</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Металлические стеллажи</td><td class="price">113 714 GEL</td></tr>
+              <tr><td>Барная стойка</td><td class="price">53 609 GEL</td></tr>
+              <tr><td>Мебель рабочий санузел</td><td class="price">1 768 GEL</td></tr>
+              <tr><td>Мебель гостевой санузел</td><td class="price">1 988 GEL</td></tr>
+              <tr><td>Тумба под кофемашину</td><td class="price">4 070 GEL</td></tr>
+              <tr><td>Тумба под пирамиду</td><td class="price">5 620 GEL</td></tr>
+              <tr><td>Основа для пирамиды</td><td class="price">1 110 GEL</td></tr>
+              <tr><td>Пирамида</td><td class="price">19 294 GEL</td></tr>
+              <tr><td>Оклейка колонн и стен в баре</td><td class="price">1 392 GEL</td></tr>
+              <tr><td>Стол дубовый в дегустационный зал</td><td class="price">0 GEL</td></tr>
+              <tr><td>Проектирование мебели</td><td class="price">4 750 GEL</td></tr>
+              <tr class="total-row"><td>Итого</td><td class="price">207 315 GEL</td></tr>
+            </tbody>
+          </table>
+        </article>
+        <article class="panel">
+          <h3>Закуплено и оплачено на данный момент</h3>
+          <ul>
+            <li>Металл для изготовления стеллажей: 13 108 GEL.</li>
+            <li>Предоплата за изготовление: 34 225 GEL без НДС.</li>
+            <li>Материал Staron Sanded Icicle SI414: 17 листов, 23 412,87 GEL.</li>
+            <li>Основа для пирамиды из березовой фанеры: 1 110 GEL.</li>
+            <li>Проектирование технической документации: 2 850 GEL.</li>
+            <li><strong>Итого оплачено: 74 705,87 GEL.</strong></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="note">
+      <h2>Подрядчики и проектирование</h2>
+      <p class="muted">Проектирование технической документации мебели для проекта винного бутика The Reserve: ИП Евдонин А. В. Изготовление отдельных элементов распределено между ИП Новиков А., ИП Руденко Д., Decomix LLS, Euroglass LLS и другими подрядчиками согласно разделам проекта.</p>
+    </section>
+  </main>
+</body>
+</html>
