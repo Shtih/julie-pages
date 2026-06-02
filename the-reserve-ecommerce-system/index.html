@@ -111,6 +111,27 @@
       text-wrap: balance;
     }
 
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .button {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 9px 13px;
+      background: var(--accent-soft);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
     .hero-facts {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -490,6 +511,9 @@
         <p class="eyebrow">Презентация к согласованию</p>
         <h1>Создание e-commerce-системы пространства The Reserve</h1>
         <p class="lead">Проект рассматривается как единый портфель: сайт, мобильное приложение, 1C, Odoo, лояльность, платежи, коммуникации, агрегаторы, доставка и операционная поддержка.</p>
+        <div class="hero-actions">
+          <a class="button" href="../the-reserve-site-app/">Перейти к презентации сайта</a>
+        </div>
       </div>
       <div class="hero-facts">
         <div class="fact">
