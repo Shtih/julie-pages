@@ -521,6 +521,133 @@
       background: var(--bg);
     }
 
+    .architecture-card {
+      display: grid;
+      gap: 12px;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px;
+      background: var(--paper);
+    }
+
+    .architecture-layer {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .layer-title {
+      min-height: 76px;
+      display: grid;
+      align-content: center;
+      gap: 3px;
+      border: 1px solid var(--accent);
+      border-left: 8px solid var(--accent);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--bg);
+      color: var(--critical);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .layer-title span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+      text-transform: none;
+    }
+
+    .layer-nodes {
+      display: grid;
+      gap: 10px;
+    }
+
+    .layer-nodes.client {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .layer-nodes.odoo {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .layer-nodes.core {
+      grid-template-columns: 1fr;
+    }
+
+    .arch-node {
+      min-height: 76px;
+      display: grid;
+      gap: 6px;
+      align-content: center;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--paper);
+    }
+
+    .arch-node strong {
+      color: var(--critical);
+      line-height: 1.18;
+    }
+
+    .arch-node span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 720;
+      line-height: 1.25;
+    }
+
+    .arch-node.accounting-highlight {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: var(--paper);
+    }
+
+    .arch-node.accounting-highlight strong,
+    .arch-node.accounting-highlight span {
+      color: var(--paper);
+    }
+
+    .arrow-board {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .arrow-card {
+      min-height: 0;
+      display: grid;
+      gap: 3px;
+      align-content: start;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 10px;
+      background: var(--bg);
+      font-size: 13px;
+    }
+
+    .arrow-card strong {
+      color: var(--critical);
+      line-height: 1.2;
+    }
+
+    .arrow-card p {
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .schema-rule {
+      border: 1px solid var(--accent);
+      border-left: 8px solid var(--critical);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--paper);
+      color: var(--muted);
+    }
+
     .page-footer {
       padding: 24px 0 34px;
       color: var(--muted);
@@ -537,8 +664,15 @@
       .card-grid,
       .system-map,
       .flow-diagram,
-      .exchange-strip {
+      .exchange-strip,
+      .architecture-layer,
+      .arrow-board {
         grid-template-columns: 1fr;
+      }
+
+      .layer-nodes.client,
+      .layer-nodes.odoo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .slide-head {
@@ -599,6 +733,15 @@
 
       .exchange-strip {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .arrow-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .layer-nodes.client,
+      .layer-nodes.odoo {
+        grid-template-columns: 1fr;
       }
 
       .exchange-item {
@@ -745,57 +888,84 @@
         </div>
       </div>
       <div class="slide-body">
-        <div class="flow-diagram" aria-label="Логика обменов e-commerce-системы">
-          <div class="flow-column">
-            <div class="flow-card">
-              <span class="flow-label">учетное ядро</span>
-              <strong>1C</strong>
-              <p>Отдает каталог, цены, остатки и статусы. Получает заказы, отмены и возвраты.</p>
-            </div>
-            <div class="flow-card">
-              <span class="flow-label">внешние каналы</span>
-              <strong>Агрегаторы</strong>
-              <p>Wolt, Glovo, Yandex, Bolt и Extra остаются отдельными каналами со своими правилами.</p>
+        <div class="architecture-card" aria-label="Слоистая блок-схема e-commerce-системы The Reserve">
+          <div class="architecture-layer">
+            <div class="layer-title">Верхний слой<span>клиентские входы и каналы</span></div>
+            <div class="layer-nodes client">
+              <div class="arch-node">
+                <strong>Сайт и мобильное приложение The Reserve</strong>
+                <span>наш клиентский канал</span>
+              </div>
+              <div class="arch-node">
+                <strong>Мессенджеры и коммуникации</strong>
+                <span>связь с сотрудником</span>
+              </div>
+              <div class="arch-node">
+                <strong>Агрегаторы</strong>
+                <span>внешний канал</span>
+              </div>
+              <div class="arch-node">
+                <strong>Доставка</strong>
+                <span>заказы сайта / приложения</span>
+              </div>
+              <div class="arch-node">
+                <strong>Платежная система</strong>
+                <span>оплата, возвраты, статусы</span>
+              </div>
             </div>
           </div>
 
-          <div class="flow-core">
-            <span class="flow-label">клиентский вход</span>
-            <strong>Сайт + мобильное приложение</strong>
-            <p>Клиент выбирает товар, оформляет заказ, оплачивает, видит лояльность, бронирует стол и обращается в поддержку.</p>
+          <div class="architecture-layer">
+            <div class="layer-title">Средний слой<span>операционный Odoo</span></div>
+            <div class="layer-nodes odoo">
+              <div class="arch-node">
+                <strong>Odoo CRM</strong>
+                <span>обращения и коммуникации</span>
+              </div>
+              <div class="arch-node">
+                <strong>Odoo BAR</strong>
+                <span>бронирование и бар</span>
+              </div>
+              <div class="arch-node">
+                <strong>Odoo Лояльность</strong>
+                <span>профиль, баллы, акции</span>
+              </div>
+              <div class="arch-node">
+                <strong>Odoo Backoffice</strong>
+                <span>задачи, баги, аналитика</span>
+              </div>
+            </div>
           </div>
 
-          <div class="flow-column">
-            <div class="flow-card">
-              <span class="flow-label">операционный слой</span>
-              <strong>Odoo</strong>
-              <p>Закрывает CRM, BAR, Backoffice и Лояльность, связывая обращения, брони, задачи и начисления.</p>
-            </div>
-            <div class="flow-card">
-              <span class="flow-label">оплата и сервис</span>
-              <strong>Платежи / коммуникации</strong>
-              <p>Платежная система отвечает за оплату и возвраты; мессенджеры и телефония — за контакт с клиентом.</p>
+          <div class="architecture-layer">
+            <div class="layer-title">Нижний слой<span>учетное ядро</span></div>
+            <div class="layer-nodes core">
+              <div class="arch-node accounting-highlight">
+                <strong>1C</strong>
+                <span>каталог, остатки, заказы, склад, учет</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="exchange-strip">
-          <div class="exchange-item">
-            <strong>1C → сайт</strong>
-            <p>каталог, цены, остатки, статусы</p>
-          </div>
-          <div class="exchange-item">
-            <strong>сайт → 1C</strong>
-            <p>заказы, отмены, возвраты</p>
-          </div>
-          <div class="exchange-item">
-            <strong>сайт ↔ Odoo</strong>
-            <p>лояльность, бронирование, обращения</p>
-          </div>
-          <div class="exchange-item">
-            <strong>сайт ↔ платежи</strong>
-            <p>оплата, статус платежа, возвраты</p>
-          </div>
+        <div class="arrow-board" aria-label="Главные стрелки схемы">
+          <div class="arrow-card"><strong>Сайт и приложение ↔ 1C</strong><p>Каталог, цены, остатки, заказы, статусы.</p></div>
+          <div class="arrow-card"><strong>Сайт и приложение ↔ Платежная система</strong><p>Онлайн-оплата, возвраты, статус платежа.</p></div>
+          <div class="arrow-card"><strong>Сайт и приложение ↔ Odoo Лояльность</strong><p>Профиль, баллы, уровни, промокоды, сертификаты.</p></div>
+          <div class="arrow-card"><strong>Сайт и приложение ↔ Odoo BAR</strong><p>Бронирование столов.</p></div>
+          <div class="arrow-card"><strong>Сайт и приложение ↔ Odoo CRM</strong><p>Обращения и коммуникации.</p></div>
+          <div class="arrow-card"><strong>Сайт и приложение ↔ Доставка</strong><p>Доставка заказов сайта / приложения.</p></div>
+          <div class="arrow-card"><strong>Сайт и приложение ↔ Мессенджеры</strong><p>Связь с сотрудником.</p></div>
+          <div class="arrow-card"><strong>Odoo Лояльность ↔ CRM / Backoffice</strong><p>Профиль, история, аналитика, правила, акции.</p></div>
+          <div class="arrow-card"><strong>Odoo BAR ↔ 1C</strong><p>Склад бара, перемещения, списания, инвентаризация.</p></div>
+          <div class="arrow-card"><strong>Odoo ↔ 1C</strong><p>Единая интеграция с разными сценариями по модулям.</p></div>
+          <div class="arrow-card"><strong>Агрегаторы → 1C</strong><p>Заказы агрегаторов, на MVP вручную.</p></div>
+          <div class="arrow-card"><strong>Мессенджеры ↔ Odoo CRM</strong><p>Обращения, звонки, история коммуникаций.</p></div>
+          <div class="arrow-card"><strong>Odoo Backoffice ↔ Odoo-модули</strong><p>Дашборды, аналитика, задачи, баги, контроль процессов.</p></div>
+        </div>
+
+        <div class="schema-rule">
+          Не рисуем прямые связи агрегаторов с сайтом, доставкой и платежами; не соединяем платежную систему напрямую с 1C или доставкой; доставку не показываем как часть агрегаторов.
         </div>
 
         <div class="callout">
