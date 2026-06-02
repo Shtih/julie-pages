@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Reserve · E-commerce-система</title>
+  <style>
+    :root {
+      --bg: #fff0d6;
+      --paper: #ffffff;
+      --ink: #0B203C;
+      --muted: #34445A;
+      --accent: #BEAB6B;
+      --accent-soft: #efd29d;
+      --critical: #651C32;
+      --blue: #4197CA;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: var(--critical);
+      font-weight: 760;
+      text-decoration: none;
+    }
+
+    p,
+    h1,
+    h2,
+    h3,
+    blockquote {
+      margin: 0;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .page-header {
+      background: var(--ink);
+      color: var(--paper);
+      border-bottom: 8px solid var(--accent);
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      align-content: center;
+      gap: 28px;
+      padding: 44px 0 52px;
+    }
+
+    .logo {
+      width: 112px;
+      height: auto;
+      border: 1px solid var(--accent);
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: 18px;
+      max-width: 880px;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      border-left: 5px solid var(--accent);
+      padding-left: 12px;
+      color: var(--accent-soft);
+      font-size: 13px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 900px;
+      color: var(--paper);
+      font-size: clamp(34px, 6vw, 68px);
+      line-height: 1.02;
+      font-weight: 900;
+      text-wrap: balance;
+    }
+
+    .lead {
+      max-width: 760px;
+      color: var(--accent-soft);
+      font-size: 19px;
+      line-height: 1.6;
+      text-wrap: balance;
+    }
+
+    .hero-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .fact {
+      min-height: 108px;
+      padding: 16px;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .fact b {
+      color: var(--accent-soft);
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .fact span {
+      color: var(--paper);
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--paper);
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .nav-inner {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 12px 0;
+    }
+
+    .nav a {
+      flex: 0 0 auto;
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 6px 10px;
+      color: var(--ink);
+      background: var(--paper);
+      font-size: 13px;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 22px;
+      padding: 28px 0 54px;
+      counter-reset: slide;
+    }
+
+    .slide {
+      background: var(--paper);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      overflow: hidden;
+      counter-increment: slide;
+    }
+
+    .slide-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 22px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .slide-number {
+      min-width: 52px;
+      min-height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--accent-soft);
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .slide-number::before {
+      content: counter(slide, decimal-leading-zero);
+    }
+
+    .slide-title {
+      display: grid;
+      gap: 7px;
+    }
+
+    h2 {
+      color: var(--ink);
+      font-size: clamp(24px, 3.4vw, 38px);
+      line-height: 1.08;
+      font-weight: 880;
+      text-wrap: balance;
+    }
+
+    .summary {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 820px;
+    }
+
+    .slide-body {
+      display: grid;
+      gap: 18px;
+      padding: 22px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .callout,
+    .quote,
+    .mini-card {
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px;
+      background: var(--bg);
+    }
+
+    .quote {
+      border-left: 8px solid var(--accent);
+      color: var(--ink);
+      font-size: 19px;
+      font-weight: 760;
+    }
+
+    .callout strong,
+    .mini-card strong {
+      color: var(--critical);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .mini-card {
+      min-height: 128px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .mini-card span,
+    .tag {
+      width: fit-content;
+      min-height: 26px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 8px;
+      padding: 3px 8px;
+      background: var(--ink);
+      color: var(--accent-soft);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .tag.critical {
+      background: var(--critical);
+      color: var(--paper);
+    }
+
+    .tag.blue {
+      background: var(--blue);
+      color: var(--paper);
+    }
+
+    .steps,
+    .plain-list {
+      margin: 0;
+      padding-left: 22px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .steps li::marker,
+    .plain-list li::marker {
+      color: var(--critical);
+      font-weight: 900;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--accent);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td.amount {
+      text-align: right;
+      white-space: nowrap;
+      font-weight: 850;
+      color: var(--critical);
+    }
+
+    .total-row td {
+      background: var(--accent-soft);
+      font-weight: 900;
+    }
+
+    .note-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding-top: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .note-line b {
+      color: var(--critical);
+    }
+
+    .system-map {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .node {
+      min-height: 94px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--paper);
+      color: var(--ink);
+      text-align: center;
+      font-weight: 850;
+    }
+
+    .node.core {
+      background: var(--ink);
+      color: var(--accent-soft);
+    }
+
+    .node.accent {
+      background: var(--accent-soft);
+      color: var(--ink);
+    }
+
+    .page-footer {
+      padding: 24px 0 34px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        min-height: 0;
+      }
+
+      .split,
+      .card-grid,
+      .system-map {
+        grid-template-columns: 1fr;
+      }
+
+      .slide-head {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        min-width: 640px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .hero {
+        gap: 20px;
+        padding: 28px 0 30px;
+      }
+
+      .logo {
+        width: 94px;
+      }
+
+      .lead {
+        font-size: 17px;
+      }
+
+      .hero-facts {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .fact {
+        min-height: 96px;
+        padding: 12px;
+      }
+
+      .fact b {
+        font-size: 20px;
+      }
+
+      .slide {
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+      }
+
+      .slide-head,
+      .slide-body {
+        padding: 18px 12px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="wrap hero">
+      <img class="logo" src="assets/the-reserve-logo.png" alt="The Reserve">
+      <div class="hero-copy">
+        <p class="eyebrow">Презентация к согласованию</p>
+        <h1>Создание e-commerce-системы пространства The Reserve</h1>
+        <p class="lead">Проект рассматривается как единый портфель: сайт, мобильное приложение, 1C, Odoo, лояльность, платежи, коммуникации, агрегаторы, доставка и операционная поддержка.</p>
+      </div>
+      <div class="hero-facts">
+        <div class="fact">
+          <b>15.08</b>
+          <span>целевой срок MVP</span>
+        </div>
+        <div class="fact">
+          <b>43 674,60 USD</b>
+          <span>уже оцененные блоки</span>
+        </div>
+        <div class="fact">
+          <b>10%</b>
+          <span>резерв после финализации бюджета</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="Разделы презентации">
+    <div class="wrap nav-inner">
+      <a href="#scope">Масштаб</a>
+      <a href="#modules">Модули</a>
+      <a href="#logic">Логика</a>
+      <a href="#mvp">MVP</a>
+      <a href="#budget">Бюджет</a>
+      <a href="#open">Не оценено</a>
+      <a href="#odoo">Odoo</a>
+      <a href="#risks">Риски</a>
+      <a href="#decisions">Решения</a>
+      <a href="#steps">Шаги</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section class="slide" id="scope">
+      <div class="slide-head">
+        <div class="slide-number"></div>
+        <div class="slide-title">
+          <h2>Что мы согласовываем</h2>
+          <p class="summary">Цель встречи — согласовать e-commerce-проект The Reserve как единый портфель проектов, а не как отдельный сайт.</p>
+        </div>
+      </div>
+      <div class="slide-body">
+        <ol class="steps">
+          <li><strong>Масштаб проекта:</strong> сайт, мобильное приложение, 1C, Odoo, лояльность, агрегаторы, доставка, телефония, мессенджеры, SMM и поддержка.</li>
+          <li><strong>Бюджет:</strong> текущая сумма не финальная, часть блоков еще требует отдельной оценки.</li>
+          <li><strong>Odoo:</strong> рассматривается как операционный продукт для CRM, BAR, Backoffice и Лояльности.</li>
+          <li><strong>Следующий проект для оценки:</strong> интеграция Odoo ↔ 1C.</li>
+          <li><strong>Переход после общей презентации:</strong> к проекту “Сайт и мобильное приложение The Reserve”, потому что паспорт уже подготовлен.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide" id="modules">
+      <div class="slide-head">
+        <div class="slide-number"></div>
+        <div class="slide-title">
+          <h2>Из чего состоит e-commerce-система</h2>
+          <p class="summary">Система состоит из связанных модулей. Каждый закрывает отдельный контур, но итоговая приемка идет по единому бизнес-сценарию.</p>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Модуль</th>
+                <th>Роль</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1C</strong></td>
+                <td>Источник правды: каталог, товары, цены, остатки, заказы, статусы, отмены, возвраты, учет.</td>
+              </tr>
+              <tr>
+                <td><strong>Сайт и мобильное приложение</strong></td>
+                <td>Клиентский канал продаж и коммуникации.</td>
+              </tr>
+              <tr>
+                <td><strong>Odoo CRM</strong></td>
+                <td>Клиенты, обращения, коммуникации, история клиента.</td>
+              </tr>
+              <tr>
+                <td><strong>Odoo BAR</strong></td>
+                <td>Бар, бронирование столов, доступность и параметры бронирования.</td>
+              </tr>
+              <tr>
+                <td><strong>Odoo Лояльность</strong></td>
+                <td>Баллы, уровни, промокоды, сертификаты, QR-коды, начисления и списания.</td>
+              </tr>
+              <tr>
+                <td><strong>Odoo Backoffice</strong></td>
+                <td>Задачи, баги, внутренние процессы, операционный контроль.</td>
+              </tr>
+              <tr>
+                <td><strong>Платежная система</strong></td>
+                <td>Онлайн-оплата, статусы платежей, возвраты.</td>
+              </tr>
+              <tr>
+                <td><strong>Мессенджеры и телефония</strong></td>
+                <td>WhatsApp, Telegram, звонки, запись разговоров, контроль сервиса.</td>
+              </tr>
+              <tr>
+                <td><strong>Агрегаторы</strong></td>
+                <td>Wolt, Glovo, Yandex, Bolt, Extra как отдельные внешние каналы.</td>
+              </tr>
+              <tr>
+                <td><strong>Доставка</strong></td>
+                <td>Доставка заказов, оформленных через сайт и мобильное приложение.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="logic">
+      <div class="slide-head">
+        <div class="slide-number"></div>
+        <div class="slide-title">
+          <h2>Логика системы: кто с кем связан</h2>
+          <p class="summary">1C является учетным ядром, сайт и приложение — клиентским входом, Odoo — операционным слоем.</p>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="system-map" aria-label="Схема модулей">
+          <div class="node core">1C</div>
+          <div class="node accent">Сайт + приложение</div>
+          <div class="node core">Odoo</div>
+          <div class="node accent">Платежи</div>
+          <div class="node">Коммуникации</div>
+          <div class="node">Каталог</div>
+          <div class="node">Заказы</div>
+          <div class="node">CRM / BAR / Backoffice</div>
+          <div class="node">Лояльность</div>
+          <div class="node">Доставка / агрегаторы</div>
+        </div>
+        <div class="split">
+          <div class="mini-card">
+            <span>1C</span>
+            <p>Сайт и приложение получают из 1C каталог, цены, остатки и статусы заказов. Заказы, отмены и возвраты должны возвращаться в 1C.</p>
+          </div>
+          <div class="mini-card">
+            <span>Odoo</span>
+            <p>Odoo закрывает CRM, BAR, Backoffice и Лояльность, связывая клиентские обращения, бронирования, задачи и начисления.</p>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>Ключевая логика:</strong> клиентский путь работает только если сайт, приложение, 1C, Odoo, платежи и коммуникации согласованы как единая система.
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="mvp">
+      <div class="slide-head">
+        <div class="slide-number"></div>
+        <div class="slide-title">
+          <h2>Клиентский путь в MVP</h2>
+          <p class="summary">MVP должен обеспечить базовый клиентский путь от входа на сайт или в приложение до обработки заказа командой The Reserve.</p>
+        </div>
+      </div>
+      <div class="slide-body">
+        <ol class="steps">
+          <li>Клиент заходит на сайт или в мобильное приложение.</li>
+          <li>Видит каталог, цену и наличие товара.</li>
+          <li>Добавляет товар в корзину.</li>
+          <li>Оформляет заказ и оплачивает онлайн.</li>
+          <li>Получает статус заказа в личном кабинете.</li>
+          <li>Использует лояльность и бронирует стол.</li>
+          <li>Обращается через сайт, приложение, WhatsApp, Telegram или телефон.</li>
+          <li>Команда The Reserve обрабатывает заказ и ручные процессы MVP.</li>
+        </ol>
+        <blockquote class="quote">Главный принцип приемки: принимается не набор отдельных систем, а работающий бизнес-сценарий — клиентский путь + учет + коммуникация + операционная обработка.</blockquote>
+      </div>
+    </section>
+
+    <section class="slide" id="budget">
+      <div class="slide-head">
+        <div class="slide-number"></div>
+        <div class="slide-title">
+          <h2>Уже оцененные бюджеты</h2>
+          <p class="summary">Текущая сумма — не финальный бюджет, а только блоки, которые уже получили оценку.</p>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Блок</th>
+                <th>Сумма</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1C</strong></td>
+                <td class="amount">11 474 USD</td>
+              </tr>
+              <tr>
+                <td><strong>Сайт и мобильное приложение The Reserve</strong></td>
+                <td class="amount">21 365 USD</td>
+              </tr>
+              <tr>
+                <td><strong>Odoo, первый год</strong></td>
+                <td class="amount">5 725,60 USD</td>
+              </tr>
+              <tr>
+                <td><strong>Мессенджеры, минимальный годовой ориентир</strong></td>
+                <td class="amount">660 USD</td>
+              </tr>
+              <tr>
+                <td><strong>SMM, ориентир Glow на 3 месяца</strong></td>
+                <td class="amount">4 200 USD</td>
+              </tr>
+              <tr>
+                <td><strong>Фотосъемка каталога</strong></td>
+                <td class="amount">250 USD</td>
+              </tr>
+              <tr class="total-row">
+                <td><strong>Итого оценено</strong></td>
+                <td class="amount">43 674,60 USD</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note-line">
+          <span><b>Уже оплачено:</b> 9 624 USD</span>
+          <span><b>Осталось по оцененным USD-статьям:</b> 34 050,60 USD</span>
+          <span><b>Резерв после финализации:</b> 10%</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="open">
+      <div class="slide-head">
+        <div class="slide-number"></div>
+        <div class="slide-title">
+          <h2>Что еще не оценено</h2>
+          <p class="summary">Сумма 43 674,60 USD не покрывает весь e-commerce-проект. Открытые блоки нужно оценить отдельно.</p>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="card-grid">
+          <div class="mini-card">
+            <span>интеграция</span>
+            <strong>Odoo ↔ 1C</strong>
+            <p>Ключевой стык между операционным слоем и учетным ядром.</p>
+          </div>
+          <div class="mini-card">
+            <span>каналы</span>
+            <strong>Агрегаторы</strong>
+            <p>Wolt, Glovo, Yandex, Bolt, Extra, условия, комиссии и будущая интеграция.</p>
+          </div>
+          <div class="mini-card">
+            <span>операции</span>
+            <strong>Доставка</strong>
+            <p>Отдельный модуль для заказов с сайта и мобильного приложения.</p>
+          </div>
+          <div class="mini-card">
+            <span>сервис</span>
+            <strong>Цифровая телефония</strong>
+            <p>Звонки, запись разговоров, хранение записей и возможная связь с Odoo CRM.</p>
+          </div>
+          <div class="mini-card">
+            <span>запуск</span>
+            <strong>Поддержка и администрирование</strong>
+            <p>Сопровождение системы, баги, доступы, ошибки обменов и операционный владелец.</p>
+          </div>
+          <div class="mini-card">
+            <span>рост</span>
+            <strong>Маркетинг и контент</strong>
+            <p>Digital-маркетолог, рекламный бюджет, SEO, копирайтер, таргетолог и дополнительные часы Odoo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="odoo">
+      <div class="slide-head">
+        <div class="slide-number"></div>
+        <div class="slide-title">
+          <h2>Odoo как операционный продукт</h2>
+          <p class="summary">Нужно отдельно согласовать Odoo как системный продукт, закрывающий несколько операционных блоков проекта.</p>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Модуль Odoo</th>
+                <th>Что закрывает</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Odoo CRM</strong></td>
+                <td>Клиенты, обращения, коммуникации, история клиента.</td>
+              </tr>
+              <tr>
+                <td><strong>Odoo BAR</strong></td>
+                <td>Бар, бронирование столов, доступность и параметры бронирования.</td>
+              </tr>
+              <tr>
+                <td><strong>Odoo Лояльность</strong></td>
+                <td>Баллы, уровни, промокоды, сертификаты, начисления и списания.</td>
+              </tr>
+              <tr>
+                <td><strong>Odoo Backoffice</strong></td>
+                <td>Задачи, баги, внутренние процессы, операционный контроль.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="split">
+          <div class="callout">
+            <strong>5 725,60 USD</strong><br>
+            стоимость Odoo за первый год.
+          </div>
+          <div class="callout">
+            <strong>2 325,60 USD</strong> — годовое пользование системой.<br>
+            <strong>3 400 USD</strong> — 100 часов работ.
+          </div>
+        </div>
+        <blockquote class="quote">Ключевой вопрос: согласовать Odoo как единый операционный слой, связанный с 1C, сайтом, мобильным приложением и командой The Reserve.</blockquote>
+      </div>
+    </section>
+
+    <section class="slide" id="risks">
+      <div class="slide-head">
+        <div class="slide-number"></div>
+        <div class="slide-title">
+          <h2>Главные зависимости и риски</h2>
+          <p class="summary">Критичные зависимости нужно зафиксировать до запуска, чтобы не принять отдельные модули вместо работающего процесса.</p>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Зависимость</th>
+                <th>Почему критично</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1C → сайт и приложение</strong></td>
+                <td>Без каталога, цен и остатков не работает клиентский путь.</td>
+              </tr>
+              <tr>
+                <td><strong>Сайт и приложение → 1C</strong></td>
+                <td>Заказ должен попадать в учетную систему.</td>
+              </tr>
+              <tr>
+                <td><strong>Odoo ↔ 1C</strong></td>
+                <td>Нужна связка операционного слоя и учетного ядра.</td>
+              </tr>
+              <tr>
+                <td><strong>Odoo Лояльность / BAR / CRM</strong></td>
+                <td>Клиент должен видеть лояльность, бронировать столы, а обращения должны фиксироваться в единой истории.</td>
+              </tr>
+              <tr>
+                <td><strong>Команда The Reserve</strong></td>
+                <td>Ручные процессы MVP: заказы, обращения, звонки, доставка, агрегаторы.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-grid">
+          <div class="mini-card">
+            <span class="tag critical">риск</span>
+            <strong>Бюджет выше текущей оценки</strong>
+            <p>Показываем текущую сумму как промежуточную и отдельно оцениваем открытые блоки.</p>
+          </div>
+          <div class="mini-card">
+            <span class="tag critical">риск</span>
+            <strong>Сложная интеграция Odoo ↔ 1C</strong>
+            <p>Выделяем в отдельный проект и готовим отдельный паспорт.</p>
+          </div>
+          <div class="mini-card">
+            <span class="tag critical">риск</span>
+            <strong>Команда не готова к MVP</strong>
+            <p>Готовим инструкции, обучение и ответственных.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="decisions">
+      <div class="slide-head">
+        <div class="slide-number"></div>
+        <div class="slide-title">
+          <h2>Что должно быть решено после встречи</h2>
+          <p class="summary">Итог встречи — управленческие решения по масштабу, бюджету, Odoo и следующим оценкам.</p>
+        </div>
+      </div>
+      <div class="slide-body">
+        <ol class="steps">
+          <li>Согласовать e-commerce-проект как портфель, а не как отдельный сайт.</li>
+          <li>Зафиксировать масштаб: сайт, приложение, 1C, Odoo, лояльность, агрегаторы, доставка, телефония, мессенджеры, SMM и поддержка.</li>
+          <li>Подтвердить, что текущий бюджет не финальный и покрывает только оцененные блоки.</li>
+          <li>Согласовать Odoo как продукт для CRM, BAR, Backoffice и Лояльности.</li>
+          <li>Определить интеграцию Odoo ↔ 1C как следующий ключевой проект для оценки.</li>
+          <li>Разделить агрегаторы и доставку как два разных модуля с отдельной оценкой.</li>
+          <li>Перейти к рассмотрению паспорта проекта “Сайт и мобильное приложение The Reserve”.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="slide" id="steps">
+      <div class="slide-head">
+        <div class="slide-number"></div>
+        <div class="slide-title">
+          <h2>Следующие управленческие шаги</h2>
+          <p class="summary">После согласования портфеля нужно запустить оценки открытых блоков и подготовить Go / No-Go чек-лист.</p>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="split">
+          <ol class="steps">
+            <li>Перейти к презентации проекта “Сайт и мобильное приложение The Reserve”.</li>
+            <li>Согласовать Odoo как операционный продукт.</li>
+            <li>Запустить паспорт проекта “Интеграция Odoo ↔ 1C”.</li>
+            <li>Оценить неоцененные блоки бюджета.</li>
+          </ol>
+          <ol class="steps" start="5">
+            <li>Отдельно оценить агрегаторы.</li>
+            <li>Отдельно оценить доставку заказов с сайта и приложения.</li>
+            <li>Согласовать бизнес-логику лояльности.</li>
+            <li>Подготовить Go / No-Go чек-лист для MVP.</li>
+          </ol>
+        </div>
+        <blockquote class="quote">The Reserve создает не отдельный сайт, а полноценную e-commerce-систему. Уже оценены стартовые блоки на 43 674,60 USD, но это не итоговый бюджет. Главный принцип — сначала запускаем рабочий клиентский путь и критичные связки, затем развиваем систему во второй итерации.</blockquote>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <div class="wrap">Дизайн и разработка: Джули Штих</div>
+  </footer>
+</body>
+</html>
