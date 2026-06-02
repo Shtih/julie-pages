@@ -427,6 +427,100 @@
       color: var(--ink);
     }
 
+    .flow-diagram {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(220px, 1.1fr) minmax(0, 0.95fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .flow-column {
+      display: grid;
+      gap: 10px;
+      align-content: stretch;
+    }
+
+    .flow-card,
+    .flow-core,
+    .exchange-item {
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--paper);
+    }
+
+    .flow-card {
+      min-height: 112px;
+      display: grid;
+      gap: 7px;
+      align-content: start;
+    }
+
+    .flow-card strong,
+    .flow-core strong,
+    .exchange-item strong {
+      color: var(--critical);
+    }
+
+    .flow-card p,
+    .flow-core p,
+    .exchange-item p {
+      color: var(--muted);
+    }
+
+    .flow-core {
+      min-height: 100%;
+      display: grid;
+      gap: 12px;
+      align-content: center;
+      background: var(--ink);
+      color: var(--paper);
+      text-align: center;
+    }
+
+    .flow-core strong {
+      color: var(--accent-soft);
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.08;
+    }
+
+    .flow-core p {
+      color: var(--accent-soft);
+    }
+
+    .flow-label {
+      width: fit-content;
+      min-height: 26px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 8px;
+      padding: 3px 8px;
+      background: var(--ink);
+      color: var(--accent-soft);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .flow-core .flow-label {
+      margin: 0 auto;
+      border: 1px solid var(--accent);
+    }
+
+    .exchange-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .exchange-item {
+      min-height: 96px;
+      display: grid;
+      gap: 6px;
+      align-content: start;
+      background: var(--bg);
+    }
+
     .page-footer {
       padding: 24px 0 34px;
       color: var(--muted);
@@ -441,7 +535,9 @@
 
       .split,
       .card-grid,
-      .system-map {
+      .system-map,
+      .flow-diagram,
+      .exchange-strip {
         grid-template-columns: 1fr;
       }
 
@@ -499,6 +595,15 @@
 
       h1 {
         font-size: 36px;
+      }
+
+      .exchange-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .exchange-item {
+        min-height: 86px;
+        padding: 12px;
       }
     }
   </style>
@@ -640,28 +745,59 @@
         </div>
       </div>
       <div class="slide-body">
-        <div class="system-map" aria-label="Схема модулей">
-          <div class="node core">1C</div>
-          <div class="node accent">Сайт + приложение</div>
-          <div class="node core">Odoo</div>
-          <div class="node accent">Платежи</div>
-          <div class="node">Коммуникации</div>
-          <div class="node">Каталог</div>
-          <div class="node">Заказы</div>
-          <div class="node">CRM / BAR / Backoffice</div>
-          <div class="node">Лояльность</div>
-          <div class="node">Доставка / агрегаторы</div>
-        </div>
-        <div class="split">
-          <div class="mini-card">
-            <span>1C</span>
-            <p>Сайт и приложение получают из 1C каталог, цены, остатки и статусы заказов. Заказы, отмены и возвраты должны возвращаться в 1C.</p>
+        <div class="flow-diagram" aria-label="Логика обменов e-commerce-системы">
+          <div class="flow-column">
+            <div class="flow-card">
+              <span class="flow-label">учетное ядро</span>
+              <strong>1C</strong>
+              <p>Отдает каталог, цены, остатки и статусы. Получает заказы, отмены и возвраты.</p>
+            </div>
+            <div class="flow-card">
+              <span class="flow-label">внешние каналы</span>
+              <strong>Агрегаторы</strong>
+              <p>Wolt, Glovo, Yandex, Bolt и Extra остаются отдельными каналами со своими правилами.</p>
+            </div>
           </div>
-          <div class="mini-card">
-            <span>Odoo</span>
-            <p>Odoo закрывает CRM, BAR, Backoffice и Лояльность, связывая клиентские обращения, бронирования, задачи и начисления.</p>
+
+          <div class="flow-core">
+            <span class="flow-label">клиентский вход</span>
+            <strong>Сайт + мобильное приложение</strong>
+            <p>Клиент выбирает товар, оформляет заказ, оплачивает, видит лояльность, бронирует стол и обращается в поддержку.</p>
+          </div>
+
+          <div class="flow-column">
+            <div class="flow-card">
+              <span class="flow-label">операционный слой</span>
+              <strong>Odoo</strong>
+              <p>Закрывает CRM, BAR, Backoffice и Лояльность, связывая обращения, брони, задачи и начисления.</p>
+            </div>
+            <div class="flow-card">
+              <span class="flow-label">оплата и сервис</span>
+              <strong>Платежи / коммуникации</strong>
+              <p>Платежная система отвечает за оплату и возвраты; мессенджеры и телефония — за контакт с клиентом.</p>
+            </div>
           </div>
         </div>
+
+        <div class="exchange-strip">
+          <div class="exchange-item">
+            <strong>1C → сайт</strong>
+            <p>каталог, цены, остатки, статусы</p>
+          </div>
+          <div class="exchange-item">
+            <strong>сайт → 1C</strong>
+            <p>заказы, отмены, возвраты</p>
+          </div>
+          <div class="exchange-item">
+            <strong>сайт ↔ Odoo</strong>
+            <p>лояльность, бронирование, обращения</p>
+          </div>
+          <div class="exchange-item">
+            <strong>сайт ↔ платежи</strong>
+            <p>оплата, статус платежа, возвраты</p>
+          </div>
+        </div>
+
         <div class="callout">
           <strong>Ключевая логика:</strong> клиентский путь работает только если сайт, приложение, 1C, Odoo, платежи и коммуникации согласованы как единая система.
         </div>

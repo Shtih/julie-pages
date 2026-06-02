@@ -418,6 +418,96 @@
       color: var(--ink);
     }
 
+    .placement-diagram {
+      display: grid;
+      gap: 12px;
+    }
+
+    .portfolio-band,
+    .placement-core,
+    .integration-strip div {
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .portfolio-band {
+      background: var(--ink);
+      color: var(--accent-soft);
+      font-size: 13px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .placement-core {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+      gap: 14px;
+      background: var(--paper);
+    }
+
+    .product-panel {
+      display: grid;
+      gap: 10px;
+      align-content: center;
+      padding: 18px;
+      border-radius: 8px;
+      background: var(--accent-soft);
+    }
+
+    .product-panel strong {
+      color: var(--ink);
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.08;
+    }
+
+    .backend-panel {
+      display: grid;
+      gap: 10px;
+      align-content: center;
+      padding: 18px;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      background: var(--bg);
+    }
+
+    .backend-panel strong,
+    .integration-strip strong {
+      color: var(--critical);
+    }
+
+    .placement-label {
+      width: fit-content;
+      min-height: 26px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 8px;
+      padding: 3px 8px;
+      background: var(--ink);
+      color: var(--accent-soft);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .integration-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .integration-strip div {
+      min-height: 94px;
+      display: grid;
+      gap: 5px;
+      align-content: start;
+      background: var(--paper);
+    }
+
+    .integration-strip p {
+      color: var(--muted);
+    }
+
     .page-footer {
       padding: 24px 0 34px;
       color: var(--muted);
@@ -432,7 +522,9 @@
 
       .split,
       .card-grid,
-      .system-map {
+      .system-map,
+      .placement-core,
+      .integration-strip {
         grid-template-columns: 1fr;
       }
 
@@ -494,6 +586,10 @@
 
       h1 {
         font-size: 36px;
+      }
+
+      .integration-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
   </style>
@@ -598,16 +694,42 @@
         </div>
       </div>
       <div class="slide-body">
-        <div class="system-map" aria-label="Место проекта в системе">
-          <div class="node core">Сайт / web-приложение</div>
-          <div class="node core">Мобильное приложение</div>
-          <div class="node accent">Единый backend</div>
-          <div class="node">Admin panel</div>
-          <div class="node">1C</div>
-          <div class="node">Платежи</div>
-          <div class="node">CRM</div>
-          <div class="node">Лояльность</div>
+        <div class="placement-diagram" aria-label="Место проекта сайта и приложения в e-commerce-системе">
+          <div class="portfolio-band">Портфель: e-commerce-система пространства The Reserve</div>
+
+          <div class="placement-core">
+            <div class="product-panel">
+              <span class="placement-label">клиентский канал</span>
+              <strong>Сайт / web-приложение + мобильное приложение</strong>
+              <p>Единый вход для покупки, оплаты, личного кабинета, лояльности, поддержки и бронирования.</p>
+            </div>
+            <div class="backend-panel">
+              <span class="placement-label">техническая связка</span>
+              <strong>Единый backend + admin panel</strong>
+              <p>Обмены, журнал ошибок, административное управление и связка с внутренним операционным контуром.</p>
+            </div>
+          </div>
+
+          <div class="integration-strip">
+            <div>
+              <strong>1C</strong>
+              <p>каталог, остатки, заказы, статусы</p>
+            </div>
+            <div>
+              <strong>Платежи</strong>
+              <p>оплата, повторная оплата, возвраты</p>
+            </div>
+            <div>
+              <strong>CRM / обращения</strong>
+              <p>поддержка и история клиента</p>
+            </div>
+            <div>
+              <strong>Лояльность / бронь</strong>
+              <p>баллы, QR-коды, бронирования</p>
+            </div>
+          </div>
         </div>
+
         <ol class="steps">
           <li>Поддерживает продажи бутика и связан с операционными процессами бара.</li>
           <li>Получает данные из 1C и передает заказы, статусы, отмены и возвраты.</li>
