@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EcomD Reserve · Хранилище документов</title>
+  <style>
+    :root {
+      --navy: #0B203C;
+      --blue-gray: #34445A;
+      --gold: #BEAB6B;
+      --gold-light: #efd29d;
+      --wine: #651C32;
+      --sky: #4197CA;
+      --paper: #fff0d6;
+      --white: #ffffff;
+      --line: rgba(11, 32, 60, 0.16);
+      --muted: rgba(11, 32, 60, 0.68);
+      --shadow: 0 18px 42px rgba(11, 32, 60, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--navy);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .page-header {
+      background: var(--navy);
+      color: var(--white);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .hero {
+      min-height: 64vh;
+      padding: 34px 0 42px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .logo {
+      width: 112px;
+      height: auto;
+      display: block;
+      margin-bottom: 34px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--gold-light);
+      font-size: 13px;
+      font-weight: 760;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(40px, 7vw, 76px);
+      line-height: 0.98;
+      font-weight: 860;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin-top: 22px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 19px;
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .button {
+      min-height: 44px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 8px;
+      padding: 11px 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: 820;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--white);
+    }
+
+    .status-panel {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .status-row {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .status-row:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .tag {
+      width: fit-content;
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: var(--gold-light);
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 820;
+    }
+
+    .tag.blue { background: var(--sky); color: var(--white); }
+    .tag.wine { background: var(--wine); color: var(--white); }
+    .tag.gray { background: var(--blue-gray); color: var(--white); }
+
+    main {
+      display: grid;
+      gap: 20px;
+      padding: 26px 0 46px;
+    }
+
+    .section {
+      display: grid;
+      gap: 14px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .section-head {
+      display: flex;
+      gap: 12px;
+      align-items: start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    h2 {
+      font-size: 26px;
+      line-height: 1.12;
+    }
+
+    .muted {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .doc-card {
+      min-height: 198px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 15px;
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      background: rgba(255, 240, 214, 0.36);
+    }
+
+    .doc-card h3 {
+      margin-top: 10px;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .doc-meta {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.42;
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .text-link {
+      min-height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      padding: 7px 10px;
+      display: inline-flex;
+      align-items: center;
+      color: var(--navy);
+      background: var(--white);
+      font-size: 13px;
+      font-weight: 820;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 18px 0;
+      color: var(--muted);
+      background: var(--white);
+      font-size: 12px;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="wrap hero">
+      <div>
+        <img class="logo" src="assets/the-reserve-logo.png" alt="The Reserve">
+        <p class="eyebrow">Файловое хранилище проекта</p>
+        <h1>EcomD Reserve</h1>
+        <p class="lead">Публичная полка для паспортов проектов, согласованных документов, черновиков с пометкой статуса и вводных материалов по портфелю The Reserve.</p>
+        <div class="hero-actions">
+          <a class="button" href="../the-reserve-ecommerce-system/">E-commerce-портфель</a>
+          <a class="button secondary" href="../the-reserve-site-app/">Сайт и приложение</a>
+          <a class="button secondary" href="../the-reserve-1c-odoo/">1C ↔ Odoo</a>
+        </div>
+      </div>
+      <div class="status-panel" aria-label="Статусы документов">
+        <div class="status-row">
+          <span class="tag">Согласован</span>
+          <p>Документ можно показывать как утвержденный источник для публичной страницы.</p>
+        </div>
+        <div class="status-row">
+          <span class="tag wine">Сделан</span>
+          <p>Документ или черновик собран, но согласование не подтверждено.</p>
+        </div>
+        <div class="status-row">
+          <span class="tag gray">Требуется</span>
+          <p>Документ упомянут или нужен для проекта, но данных для публикации пока недостаточно.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Паспорта проектов</h2>
+          <p class="muted">Каждый паспорт будет храниться как полный документ, а на публичной презентации будет отражаться кратко: один пункт паспорта = один лист/слайд/секция.</p>
+        </div>
+        <span class="tag blue">3 проекта</span>
+      </div>
+
+      <div class="grid">
+        <article class="doc-card">
+          <div>
+            <span class="tag gray">ожидает загрузки</span>
+            <h3>E-commerce-система</h3>
+          </div>
+          <div class="doc-meta">
+            <span>Тип: паспорт проекта</span>
+            <span>Статус: требуется актуальный текст паспорта</span>
+          </div>
+          <div class="link-row">
+            <a class="text-link" href="../the-reserve-ecommerce-system/">Публичная презентация</a>
+          </div>
+        </article>
+
+        <article class="doc-card">
+          <div>
+            <span class="tag gray">ожидает загрузки</span>
+            <h3>Сайт и мобильное приложение</h3>
+          </div>
+          <div class="doc-meta">
+            <span>Тип: паспорт проекта</span>
+            <span>Статус: требуется актуальный текст паспорта</span>
+          </div>
+          <div class="link-row">
+            <a class="text-link" href="../the-reserve-site-app/">Публичная презентация</a>
+          </div>
+        </article>
+
+        <article class="doc-card">
+          <div>
+            <span class="tag gray">ожидает загрузки</span>
+            <h3>1C ↔ Odoo</h3>
+          </div>
+          <div class="doc-meta">
+            <span>Тип: паспорт проекта</span>
+            <span>Статус: требуется актуальный текст паспорта</span>
+          </div>
+          <div class="link-row">
+            <a class="text-link" href="../the-reserve-1c-odoo/">Публичная презентация</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Дополнительные документы</h2>
+          <p class="muted">Здесь будут появляться ТЗ, вводные, схемы, сметы, протоколы встреч и приложения. Документы без подтвержденного согласования остаются с явной пометкой.</p>
+        </div>
+        <span class="tag wine">реестр</span>
+      </div>
+
+      <div class="grid">
+        <article class="doc-card">
+          <div>
+            <span class="tag gray">пока пусто</span>
+            <h3>Вводные проекта</h3>
+          </div>
+          <div class="doc-meta">
+            <span>Статус: документы еще не переданы</span>
+            <span>Действие: добавить после получения материалов</span>
+          </div>
+        </article>
+
+        <article class="doc-card">
+          <div>
+            <span class="tag gray">пока пусто</span>
+            <h3>Технические материалы</h3>
+          </div>
+          <div class="doc-meta">
+            <span>Статус: документы еще не переданы</span>
+            <span>Действие: связать с нужным проектом</span>
+          </div>
+        </article>
+
+        <article class="doc-card">
+          <div>
+            <span class="tag gray">пока пусто</span>
+            <h3>Согласования и решения</h3>
+          </div>
+          <div class="doc-meta">
+            <span>Статус: документы еще не переданы</span>
+            <span>Действие: отмечать согласованность отдельно</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">Дизайн и разработка: Джули Штих</div>
+  </footer>
+</body>
+</html>
